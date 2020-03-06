@@ -49,3 +49,9 @@ for (j in 1:n) {
 hist(y, main="max of 5 samples from U(1)")
 #3.b Sammenlign histogrammet til Y med den verdien du har valgt for θ. Konklusjon?
 # - de fleste verdiene ligger nærmt delta. Som forventet.
+
+#################################
+##4.a 
+maxi = 20
+sigma = 1
+#kritiske verdier for chi sq dist for 95% konf
