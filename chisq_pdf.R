@@ -54,4 +54,10 @@ hist(y, main="max of 5 samples from U(1)")
 ##4.a 
 maxi = 20
 sigma = 1
+sub_sample = rnorm(maxi, mean=0, sd=sigma)
 #kritiske verdier for chi sq dist for 95% konf
+
+# 95% conf:
+alpha = 0.95
+interval=qchisq(c((1-alpha)/2,alpha/2),df=19, lower.tail=FALSE)
+
