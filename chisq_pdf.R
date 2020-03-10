@@ -58,6 +58,17 @@ sub_sample = rnorm(maxi, mean=0, sd=sigma)
 #kritiske verdier for chi sq dist for 95% konf
 
 # 95% conf:
-alpha = 0.95
-interval=qchisq(c((1-alpha)/2,alpha/2),df=19, lower.tail=FALSE)
+alpha = 1-0.95
+two_point_five_left=qchisq(alpha/2, df=(maxi-1))
+ninty_seven_point_five_left=qchisq(1-(alpha/2), df=(maxi-1))
+#(8.906516, 32.85233)
 
+#estimage of sigma^2
+sigma_hat_low = ((maxi-1)*sigma^2)/ninty_seven_point_five_left
+sigma_hat_high = ((maxi-1)*sigma^2)/two_point_five_left
+
+sqrt(sigma_hat_low)
+sqrt(sigma_hat_high)
+# {1} : {(0.7604904, 1.460572)}
+
+#4.b
