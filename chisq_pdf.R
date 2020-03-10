@@ -55,6 +55,8 @@ hist(y, main="max of 5 samples from U(1)")
 maxi = 20
 sigma = 1
 sub_sample = rnorm(maxi, mean=0, sd=sigma)
+sample_mean = mean(sub_sample)
+standard_error = sqrt(sum((sub_sample-sample_mean)^2)) / sqrt(maxi)
 #kritiske verdier for chi sq dist for 95% konf
 
 # 95% conf:
@@ -64,12 +66,14 @@ ninty_seven_point_five_left=qchisq(1-(alpha/2), df=(maxi-1))
 #(8.906516, 32.85233)
 
 #estimage of sigma^2
-sigma_hat_low = ((maxi-1)*sigma^2)/ninty_seven_point_five_left
-sigma_hat_high = ((maxi-1)*sigma^2)/two_point_five_left
+sigma_hat_low = ((maxi-1)*standard_error^2)/ninty_seven_point_five_left
+sigma_hat_high = ((maxi-1)*standard_error^2)/two_point_five_left
 
 sqrt(sigma_hat_low)
 sqrt(sigma_hat_high)
-# {1} : {(0.7604904, 1.460572)} - is estimate of sigma
+# Answere: using standard error: (0.7402341, 1.421668) is 95% CI for sigma
+# Note: (0.7604904, 1.460572) - is estimate of using sigma=1 as in place of standard error
+
 
 #4.b
 B=999
@@ -85,7 +89,7 @@ s2_boot = 1/(maxi-1)*sum((all_mean_hat-all_boot_mean)^2)
 s_boot = sqrt(s2_boot)
 s_boot
 all_boot_mean
-#s_boot is estaimated at: 1.367971, 1.373108
+#s_boot is estaimated at: 1.367971, or 1.373108, or...
 
 #confidence interval
 z=1.96 # 95% n(0,1)
