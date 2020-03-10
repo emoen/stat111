@@ -56,7 +56,7 @@ maxi = 20
 sigma = 1
 sub_sample = rnorm(maxi, mean=0, sd=sigma)
 sample_mean = mean(sub_sample)
-standard_error = sqrt(sum((sub_sample-sample_mean)^2)) / sqrt(maxi)
+std_sample = sqrt(sum((sub_sample-sample_mean)^2)) / sqrt(maxi)
 #kritiske verdier for chi sq dist for 95% konf
 
 # 95% conf:
@@ -66,14 +66,18 @@ ninty_seven_point_five_left=qchisq(1-(alpha/2), df=(maxi-1))
 #(8.906516, 32.85233)
 
 #estimage of sigma^2
-sigma_hat_low = ((maxi-1)*standard_error^2)/ninty_seven_point_five_left
-sigma_hat_high = ((maxi-1)*standard_error^2)/two_point_five_left
+sigma2_hat_low = ((maxi-1)*std_sample^2)/ninty_seven_point_five_left
+sigma2_hat_high = ((maxi-1)*std_sample^2)/two_point_five_left
 
-sqrt(sigma_hat_low)
-sqrt(sigma_hat_high)
-# Answere: using standard error: (0.7402341, 1.421668) is 95% CI for sigma
-# Note: (0.7604904, 1.460572) - is estimate of using sigma=1 as in place of standard error
-
+#Basert på disse 20 verdiene, regn ut et 95% tosidig konfidensintervall for σ
+#2 ved å bruke kritiske
+#verdier fra kjikvadrat-fordelingen.
+sigma2_hat_low
+sigma2_hat_high
+#Svar: sigma2: (0.4810942, 1.774551)
+# => lavt estimat: (sample_mean-1.96*sqrt(0.48), sample_mean+1.96*sqrt(0.48)) = (-1.26, 1.45) - 95% CI
+# => høyt estimat: (sample_mean-1.96*sqrt(1.77), sample_mean+1.96*sqrt(1.77)) = ( -2.5, 2.7) - 95% CI
+# sample_mean=0.1
 
 #4.b
 B=999
@@ -98,6 +102,8 @@ upper = all_boot_mean + (z*s_boot)
 lower
 upper
 # (-2.423707,2.684063) is a 95% CI
+#"Basert på disse 20 verdiene, regn ut et 95% tosidig bootstrap persentil konfidensintervall for σ2"
+# Estimatet er nærmt det høye estimater fra chi-sq i 4.a
 
 # extras
 bias = abs(mean(sub_sample)-(mean(all_mean_hat))
