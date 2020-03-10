@@ -69,6 +69,31 @@ sigma_hat_high = ((maxi-1)*sigma^2)/two_point_five_left
 
 sqrt(sigma_hat_low)
 sqrt(sigma_hat_high)
-# {1} : {(0.7604904, 1.460572)}
+# {1} : {(0.7604904, 1.460572)} - is estimate of sigma
 
 #4.b
+B=999
+all_mean_hat=rep(0,B)
+for (i in 1:B) {
+    boot_sample = sample(sub_sample, replace = TRUE)
+    boot_mean = mean(boot_sample)
+    all_mean_hat[i] = boot_mean
+}
+#Formula on 8.5 page 413
+all_boot_mean = mean(all_mean_hat)
+s2_boot = 1/(maxi-1)*sum((all_mean_hat-all_boot_mean)^2)
+s_boot = sqrt(s2_boot)
+s_boot
+all_boot_mean
+#s_boot is estaimated at: 1.367971, 1.373108
+
+#confidence interval
+z=1.96 # 95% n(0,1)
+lower = all_boot_mean - (z*s_boot)
+upper = all_boot_mean + (z*s_boot)
+lower
+upper
+# (-2.423707,2.684063) is a 95% CI
+
+# extras
+bias = abs(mean(sub_sample)-(mean(all_mean_hat))
