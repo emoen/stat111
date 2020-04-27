@@ -49,6 +49,29 @@ y
 #Viss datter er 70 in => midparent 68.5
 #Viss datter er 74 in => midparent 72.36
 
+# Prediksjonen har høy usikkerhet fordi variasjonen er høy siden r^2=0.723
+# dvs at error sum of squares er 72.3% mindre med b1x+b0 enn en horisontal linje
 
-# d) 
-# e)
+# d) What are the values of SSE, SST, and the coefficient of determination? How well does
+#the midparent height account for dauthers height? 
+
+# Svar: fra boken ser man:
+############################
+#SSE=18.938
+#SST=68.409
+#coefficient of determination is r^2=0.723
+############################
+
+#svar: fra r finner man:
+###########################
+SSE = sum(regline$resid^2 )
+SST = sum((Daughter-mean(Daughter))^2)
+#18.93834
+#68.40909
+
+r_squared = 1-(SSE/SST)
+#0.7231605
+regline$df.residual # 9
+
+# e) Notice that for most of the families the midparent height exceeds the daughter height. 
+# Is this what is meant by regression to the mean? Explain
