@@ -124,13 +124,17 @@ residuals(.lin_mod_y_vs_x)
 ## 7 8 9 10 11
 ## -3.0326460 -0.4690722 5.9673540 -1.1099656 0.3264605
 ## Lag et plott som viser '.x' versus '.residuals'
-.main <- "Hovedtittel"
-.xlab <- "Tekst langs x-aksen"
-.ylab <- "Tekst langs y-aksen"
-plot(x = .x, y = .residuals, type = "p", , las = 1,
-main = .main, xlab = .xlab, ylab = .ylab)
+# dette er: 3. ei* (or ei) on the vertical axis versus xi on the horizontal axis
+.main <- "plot 3: (x, e_i) x mot residuals"
+.xlab <- "oxide-layer thickness (nm)"
+.ylab <- "Residual"
+plot(x = .x, y = .residuals, type = "p", , las = 1, main = .main, xlab = .xlab, ylab = .ylab)
 ## Legg til horisontal linje med skjaeringspunkt '0'
 abline(h = 0, col = "red", lty = 2)
+
+# The residuals should be randomly distributed about
+# 0 according to a normal distribution, so all but a very few standardized residuals
+# should lie between 2 and +2
 
 # b)
 ## Bruk 'rstandard' til å regne ut de standardiserte residualene.
