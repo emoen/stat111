@@ -174,9 +174,9 @@ qqPlot(.standard_res$)
 ## Skriv inn observasjonene:
 observasjoner <- c(30.6, 30.1, 15.6, 26.7, 27.1, 25.4, 35.0, 30.8,31.9, 53.2, 12.5, 23.2, 8.8, 24.9, 30.2)
 ## Gjør relevante endringer av koden under, så du får svart på spørsmålet.
-.x <- sample(x = 15:45, size = 15)
+.x <- observasjoner
 ## Definer mu som skal brukes i testen, og regn ut test-observatoren:
-.mu0 <- 28
+.mu0 <- 30
 .centered <- .x - .mu0
 .signed_ranks <- sign(.centered) * rank(abs(.centered))
 s_pluss <- sum(.signed_ranks[.signed_ranks > 0])
@@ -184,6 +184,8 @@ s_pluss <- sum(.signed_ranks[.signed_ranks > 0])
 ## (Formelen under gjennskaper tabell A.12 på side 809.)
 .level <- 0.25
 .c1 <- 1 + qsignrank(p = .level, n = length(.x), lower.tail = FALSE)
+
+#ensidig test - c1=73>s_pluss => beholder H_0: mu0=30
 
 
 
