@@ -134,7 +134,12 @@ abline(h = 0, col = "red", lty = 2)
 
 # The residuals should be randomly distributed about
 # 0 according to a normal distribution, so all but a very few standardized residuals
-# should lie between 2 and +2
+# should lie between 2 and +2 (side 676)
+
+# Svar: der er 5 punkter over linjen og 5 punkter under. Alle punktene er mellom ca -1 og 1.
+# Der er 2 klustere, men ellers så ser punktene tilfeldige.
+# y = 20.6 + .047x som er least squares fit for linear regression - ser ut som en god
+# tilnærming til problemet.
 
 # b)
 ## Bruk 'rstandard' til å regne ut de standardiserte residualene.
