@@ -175,7 +175,7 @@ qqPlot(.standard_res$)
 # 1. Skriv omtale av oppgaven:
 # Svar: Vi skal bruke uparameterisert prosedyre til å test en hypotese. 
 # Metoden er wilcoxon signed-rank og brukes til paa en distribusjon:
-# som er: 1. kontinuerlig 2. H_0 forutsetter at mean=meadian dvs H_0: mu=mu0 => symmetrisk distribusjon
+# som er: 1. kontinuerlig data 2. uavhengig 3. H_0 sier man at mean=meadian dvs H_0: mu=mu0 => symmetrisk distribusjon
 
 ## Skriv inn observasjonene:
 observasjoner <- c(30.6, 30.1, 15.6, 26.7, 27.1, 25.4, 35.0, 30.8,31.9, 53.2, 12.5, 23.2, 8.8, 24.9, 30.2)
@@ -190,6 +190,7 @@ s_pluss <- sum(.signed_ranks[.signed_ranks > 0])
 ## (Formelen under gjennskaper tabell A.12 på side 809.)
 .level <- 0.1
 .c1 <- 1 + qsignrank(p = .level, n = length(.x), lower.tail = FALSE)
+#.c1=84
 
 # H_0: mu=mu0, H_a: mu0 < mu 
 # mu0 = 30 => H_0: mu=30, H_a: mu < 30 => test for s_+ <= c2 som er ensidig test
@@ -205,8 +206,9 @@ n= 15
 # Vi skal bruke uparameterisert prosedyre til å test en hypotese. 
 # Denne gangen er det wilcoxon rank-sum og brukes til aa sammenligne 
 # mean paa 2  distribusjon som er: 
-#1. kontinuerlig 2. fra identisk distribusjon 
-#H_0 forutsetter at mean=meadian dvs H_0: mu=mu0 => symmetrisk distribusjon
+#1. kontinuerlig 2. uavhengig 
+#3. distribusjon X og Y har samme form og varianse 
+#4. X, Y, mu1 og mu2 maa defineres så m<=n hvor m er antall observasjoner i X og mu1 er mean til X.
 
 ## Definer vektorene
 Unexposed <- c( 8, 11, 12, 14, 20, 43, 111)
@@ -215,15 +217,23 @@ Exposed <- c(35, 56, 83, 92, 128, 150, 176, 208)
 m <- min(length(Unexposed), length(Exposed)) ## Se merknad før eksempel 14.3
 n <- max(length(Unexposed), length(Exposed)) ## (side 768) mht valg av m og n.
 ## Gjør relevante endringer av koden under, så du får svart på spørsmålet.
-.x <- runif(n = m) ## Test-vektor for å vise koden.
-.y <- runif(n = n) ## Test-vektor for å vise koden.
-Delta <- -0.3 ## Dette er verdien 'mu1 - mu2' har under H0.
+.x <- Unexposed ## Test-vektor for å vise koden.
+.y <- Exposed ## Test-vektor for å vise koden.
+Delta <- -25 ## Dette er verdien 'mu1 - mu2' har under H0.
 ## Regn ut test-observatoren.
 w <- sum(rank(c(.x - Delta, .y))[1:m])
 ## Kritisk verdi: Her hentet fra tabell A.13, side 810.
 .c1 <- 71
 ## Merk: I R ville vi normalt brukt 'wilcox.test' for denne oppgaven, og det er ingen
 ## enkel formel som direkte reproduserer tabell A.13.
+# 
+# m*(m+n+1)-.c1 = 41
+# w=39
+# H_0: mu1-mu2 = -25
+# H_a: mu1-mu2 < -25 => w <=m*(m+n+1)-.c1
+# siden w=39 og c2=41 så w <= m*(m+n+1)-.c1 => forkaster vi H_0 (ved alpha=0.05) 
+# og konkluderer med at average cotinine level hos spedbarn er mer enn 25 
+# enheter høyere hos de eksponert for røyk
 
 
 
