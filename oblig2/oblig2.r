@@ -171,6 +171,12 @@ qqPlot(.standard_res$)
 #en linaer regression vil passe.
 
 ###################################################################
+# Oppg 4 fra kap 14.1 - side 764
+# 1. Skriv omtale av oppgaven:
+# Svar: Vi skal bruke uparameterisert prosedyre til å test en hypotese. 
+# Metoden er wilcoxon signed-rank og brukes til paa en distribusjon:
+# som er: 1. kontinuerlig 2. H_0 forutsetter at mean=meadian dvs H_0: mu=mu0 => symmetrisk distribusjon
+
 ## Skriv inn observasjonene:
 observasjoner <- c(30.6, 30.1, 15.6, 26.7, 27.1, 25.4, 35.0, 30.8,31.9, 53.2, 12.5, 23.2, 8.8, 24.9, 30.2)
 ## Gjør relevante endringer av koden under, så du får svart på spørsmålet.
@@ -182,10 +188,42 @@ observasjoner <- c(30.6, 30.1, 15.6, 26.7, 27.1, 25.4, 35.0, 30.8,31.9, 53.2, 12
 s_pluss <- sum(.signed_ranks[.signed_ranks > 0])
 ## Finc den kritiske verdien 'c1' for dette tilfellet.
 ## (Formelen under gjennskaper tabell A.12 på side 809.)
-.level <- 0.25
+.level <- 0.1
 .c1 <- 1 + qsignrank(p = .level, n = length(.x), lower.tail = FALSE)
 
-#ensidig test - c1=73>s_pluss => beholder H_0: mu0=30
+# H_0: mu=mu0, H_a: mu0 < mu 
+# mu0 = 30 => H_0: mu=30, H_a: mu < 30 => test for s_+ <= c2 som er ensidig test
+# c2 = n(n+1)/2 - c1
+n= 15
+.c2 = (15*16)/2 - .c1
+# Resultat 39=s_pluss < c2=36 == False  => vi beholder H_0, og 
+#konkluderer mu er ikke mindre enn 30 ved alpha 0.1
+
+###################################################################
+# Oppg 12 fra kap 14.2 - side 764
+# 1. Skriv omtale av oppgaven:
+# Vi skal bruke uparameterisert prosedyre til å test en hypotese. 
+# Denne gangen er det wilcoxon rank-sum og brukes til aa sammenligne 
+# mean paa 2  distribusjon som er: 
+#1. kontinuerlig 2. fra identisk distribusjon 
+#H_0 forutsetter at mean=meadian dvs H_0: mu=mu0 => symmetrisk distribusjon
+
+## Definer vektorene
+Unexposed <- c( 8, 11, 12, 14, 20, 43, 111)
+Exposed <- c(35, 56, 83, 92, 128, 150, 176, 208)
+## Registrer lengdene
+m <- min(length(Unexposed), length(Exposed)) ## Se merknad før eksempel 14.3
+n <- max(length(Unexposed), length(Exposed)) ## (side 768) mht valg av m og n.
+## Gjør relevante endringer av koden under, så du får svart på spørsmålet.
+.x <- runif(n = m) ## Test-vektor for å vise koden.
+.y <- runif(n = n) ## Test-vektor for å vise koden.
+Delta <- -0.3 ## Dette er verdien 'mu1 - mu2' har under H0.
+## Regn ut test-observatoren.
+w <- sum(rank(c(.x - Delta, .y))[1:m])
+## Kritisk verdi: Her hentet fra tabell A.13, side 810.
+.c1 <- 71
+## Merk: I R ville vi normalt brukt 'wilcox.test' for denne oppgaven, og det er ingen
+## enkel formel som direkte reproduserer tabell A.13.
 
 
 
